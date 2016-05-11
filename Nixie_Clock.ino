@@ -47,7 +47,7 @@ const String leadingZero = "0";
   started, and only then.*/
 void setup() 
 {
-  Serial.begin(9600);
+  //Serial.begin(9600);
   pinMode(latchPin, OUTPUT);
   pinMode(clockPin, OUTPUT);
   pinMode(dataPin, OUTPUT);
@@ -57,38 +57,43 @@ void setup()
 //this is the program itself. This is where everything happens.
 void loop() 
 {
-  DS1302.updateTime();
-  minutes = DS1302.minutes;
-  hours = DS1302.hours;
+  DS1302.updateTime(); //have the DS1302 update the time
+  minutes = DS1302.minutes; //pull minutes out of DS1302
+  hours = DS1302.hours; //pull hours out of DS1302
   if (minutes<10)
   {
-    mins = String(leadingZero + minutes);
+    mins = String(leadingZero + minutes); //this adds a leading zero onto the string and assigns it to temp holder
   }
   else
   {
-    mins = String(minutes);
+    mins = String(minutes); //assigns it to temp holder
   }
 
   if (hours<10)
   {
-    hrs = String(leadingZero + hours);
+    hrs = String(leadingZero + hours); //this adds a leading zero onto the string and assigns it to temp holder
   }
   else
   {
-    hrs = String(hours);
+    hrs = String(hours); //assigns it to temp holder
   }
 
-  minuTensHolder = mins[0];
-  minuOnesHolder = mins[1];
-  hourTensHolder = hos[0];
-  hourOnesHolder = hos[1];
+  minuTensHolder = mins[0]; //draw first digit out of string
+  minuOnesHolder = mins[1]; //draw second digit out of string
+  hourTensHolder = hos[0]; //draw first digt out of string
+  hourOnesHolder = hos[1]; //draw second digit out of string
+  
+  //assign back to int
   c = minuTensHolder.toInt();
   d = minuOnesHolder.toInt();
   a = hourTensHolder.toInt();
   b = hourOnesHolder.toInt();
   
+  //assemble
   minutesOutput = minuTens[c] + minuOnes[d];
   hoursOutput = hourTens[a] + hourOnes[b];
+  
+  //send to shift registers
   updateRegister(minutesOutput, hoursOutput);
 
 //  delay(200);
