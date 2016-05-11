@@ -80,8 +80,8 @@ void loop()
 
   minuTensHolder = mins[0]; //draw first digit out of string
   minuOnesHolder = mins[1]; //draw second digit out of string
-  hourTensHolder = hos[0]; //draw first digt out of string
-  hourOnesHolder = hos[1]; //draw second digit out of string
+  hourTensHolder = hrs[0]; //draw first digt out of string
+  hourOnesHolder = hrs[1]; //draw second digit out of string
   
   //assign back to int
   c = minuTensHolder.toInt();
