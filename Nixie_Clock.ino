@@ -60,24 +60,10 @@ void loop()
   DS1302.updateTime(); //have the DS1302 update the time
   minutes = DS1302.minutes; //pull minutes out of DS1302
   hours = DS1302.hours; //pull hours out of DS1302
-  if (minutes<10)
-  {
-    mins = String(leadingZero + minutes); //this adds a leading zero onto the string and assigns it to temp holder
-  }
-  else
-  {
-    mins = String(minutes); //assigns it to temp holder
-  }
-
-  if (hours<10)
-  {
-    hrs = String(leadingZero + hours); //this adds a leading zero onto the string and assigns it to temp holder
-  }
-  else
-  {
-    hrs = String(hours); //assigns it to temp holder
-  }
-
+  
+  mins = determineDigits(minutes);
+  hrs = determineDigits(hours);
+  
   minuTensHolder = mins[0]; //draw first digit out of string
   minuOnesHolder = mins[1]; //draw second digit out of string
   hourTensHolder = hrs[0]; //draw first digt out of string
@@ -127,4 +113,19 @@ void updateRegister(byte input1, byte input2)
   shiftOut(dataPin, clockPin, LSBFIRST, input2);
   shiftOut(dataPin, clockPin, LSBFIRST, input1);
   digitalWrite(latchPin, HIGH);
+}
+
+String determineDigits(int input)
+{
+  String output;
+  
+  if(input<10)
+  {
+    output = String(leadingZero + input);
+  }
+  else
+  {
+    output = String(input);
+  }
+  return output;
 }
